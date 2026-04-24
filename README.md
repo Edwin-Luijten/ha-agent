@@ -4,8 +4,8 @@
 [![Add-on version](https://img.shields.io/badge/add--on-v0.1.0-0091EA.svg?style=flat-square&logo=home-assistant&logoColor=white)](./agent/config.yaml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg?style=flat-square)](./LICENSE)
 
-[![Open your Home Assistant instance and add this repository to HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=<your-fork>&repository=homeassistant&category=integration)
-[![Open your Home Assistant instance and add this add-on repository.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2F%3Cyour-fork%3E%2Fhomeassistant)
+[![Open your Home Assistant instance and add this repository to HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Edwin-Luijten&repository=ha-agent&category=integration)
+[![Open your Home Assistant instance and add this add-on repository.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FEdwin-Luijten%2Fha-agent)
 
 A Home Assistant conversation agent built on Google's ADK + Gemini.
 Resolves compositional Dutch / English queries the built-in Assist
