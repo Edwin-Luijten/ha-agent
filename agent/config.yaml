@@ -2,6 +2,8 @@ name: HA Agent
 version: 0.1.0
 slug: ha_agent
 description: Gemini-backed action-taking agent for Home Assistant
+url: https://github.com/Edwin-Luijten/ha-agent
+image: ghcr.io/edwin-luijten/ha-agent-addon-{arch}
 arch:
   - amd64
   - aarch64
