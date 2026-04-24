@@ -1,0 +1,9 @@
+**/__pycache__
+**/.pytest_cache
+**/.ruff_cache
+**/.venv
+tests
+docs
+ui/node_modules
+ui/dist
+.python-version

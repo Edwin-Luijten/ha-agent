@@ -1,0 +1,37 @@
+# Eval corpus for the compositional-task benchmark.
+# Each case uses the default fake household unless it supplies its own `entities`.
+# Aliases seed the AliasStore before the turn.
+cases:
+  - id: light_living_room_on
+    input: "doe de lampen in de woonkamer aan"
+    assertions:
+      - must_call_service: {domain: light, service: turn_on, entity_id: "^light\\.living_room"}
+      - must_not_render: plan          # single mutation, no plan needed
+      - max_llm_calls: 6
+
+  - id: light_two_rooms_plan
+    input: "doe de lampen in de woonkamer en slaapkamer aan"
+    assertions:
+      - must_render: plan              # >1 mutations in one turn → must plan first
+      - must_not_call_service: {domain: light, service: turn_on}
+
+  - id: alias_spotify_routes_through_integration
+    aliases:
+      "sasha's spotify": "media_player.spotify_sasha"
+    input: "zet sasha's spotify new releases aan in de woonkamer"
+    assertions:
+      - must_call_service: {domain: media_player, service: play_media, entity_id: "spotify_sasha"}
+      - must_not_call_service: {domain: media_player, service: play_media, entity_id: "living_room_2$"}
+
+  - id: weather_regional_card
+    input: "hoe wordt het weer vandaag?"
+    assertions:
+      - must_render: weather_card
+      - max_llm_calls: 4
+
+  - id: status_read_only
+    input: "staan alle lampen uit?"
+    assertions:
+      - must_not_call_service: {domain: light, service: turn_on}
+      - must_not_call_service: {domain: light, service: turn_off}
+      - must_not_render: plan

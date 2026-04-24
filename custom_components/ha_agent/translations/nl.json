@@ -1,0 +1,13 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "HA Agent",
+        "data": {
+          "host": "Add-on hostnaam",
+          "port": "Add-on poort"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.ruff_cache/
+.venv/
+agent/.venv/
+
+# Node / Vite
+node_modules/
+agent/ui/dist/
+*.tsbuildinfo
+
+# Secrets — never commit
+.env
+.env.local
+.env.*.local
+agent/.env
+agent/.env.local
+
+# Local data (audit / traces when running outside the add-on)
+agent/data/
+/tmp/ha-agent-data/
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/

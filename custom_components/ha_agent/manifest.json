@@ -1,0 +1,13 @@
+{
+  "domain": "ha_agent",
+  "name": "HA Agent",
+  "version": "0.1.0",
+  "documentation": "",
+  "issue_tracker": "",
+  "codeowners": ["@edwinluijten"],
+  "config_flow": true,
+  "iot_class": "local_push",
+  "integration_type": "service",
+  "dependencies": ["conversation"],
+  "requirements": ["httpx>=0.28"]
+}
