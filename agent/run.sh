@@ -29,4 +29,4 @@ if [ -z "${GOOGLE_API_KEY:-}" ]; then
 fi
 
 echo "Starting HA Agent on port 8000"
-exec uvicorn ha_agent.main:create_app --factory --host 0.0.0.0 --port 8000 --log-config /dev/null
+exec uvicorn ha_agent.main:create_app --factory --host 0.0.0.0 --port 8000
