@@ -1,5 +1,5 @@
 name: HA Agent
-version: 0.1.1
+version: 0.1.2
 slug: ha_agent
 description: Gemini-backed action-taking agent for Home Assistant
 url: https://github.com/Edwin-Luijten/ha-agent
