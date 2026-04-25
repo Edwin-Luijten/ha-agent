@@ -1,7 +1,7 @@
 {
   "domain": "ha_agent",
   "name": "HA Agent",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "documentation": "https://github.com/Edwin-Luijten/ha-agent",
   "issue_tracker": "https://github.com/Edwin-Luijten/ha-agent/issues",
   "codeowners": ["@Edwin-Luijten"],

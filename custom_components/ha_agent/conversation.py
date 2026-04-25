@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 from typing import Any
 
 import httpx
@@ -20,6 +21,30 @@ from .const import CONF_HOST, CONF_PORT, DOMAIN  # noqa: F401  (DOMAIN used else
 
 _LOGGER = logging.getLogger(__name__)
 
+ADDON_SLUG = "ha_agent"
+
+
+async def _resolve_supervisor_hostname(client: httpx.AsyncClient) -> str | None:
+    """Ask Supervisor for the add-on's actual DNS hostname.
+    """
+    token = os.environ.get("SUPERVISOR_TOKEN")
+    if not token:
+        return None
+    try:
+        r = await client.get(
+            "http://supervisor/addons",
+            headers={"Authorization": f"Bearer {token}"},
+            timeout=5.0,
+        )
+        r.raise_for_status()
+        for addon in r.json()["data"]["addons"]:
+            slug = addon.get("slug", "")
+            if slug == ADDON_SLUG or slug.endswith(f"_{ADDON_SLUG}"):
+                return slug.replace("_", "-")
+    except Exception as err:
+        _LOGGER.debug("Supervisor hostname lookup failed: %s", err)
+    return None
+
 
 async def async_setup_entry(
     hass: HomeAssistant,
@@ -28,16 +53,28 @@ async def async_setup_entry(
 ) -> None:
     host = entry.data[CONF_HOST]
     port = entry.data[CONF_PORT]
-    agent = HaAgentConversationAgent(hass, entry.entry_id, host, port)
+    client = httpx.AsyncClient(timeout=30.0)
+    resolved = await _resolve_supervisor_hostname(client)
+    if resolved:
+        _LOGGER.info("Using Supervisor-resolved hostname for HA Agent: %s", resolved)
+        host = resolved
+    agent = HaAgentConversationAgent(hass, entry.entry_id, host, port, client)
     conversation.async_set_agent(hass, entry, agent)
 
 
 class HaAgentConversationAgent(AbstractConversationAgent):
-    def __init__(self, hass: HomeAssistant, entry_id: str, host: str, port: int) -> None:
+    def __init__(
+        self,
+        hass: HomeAssistant,
+        entry_id: str,
+        host: str,
+        port: int,
+        client: httpx.AsyncClient | None = None,
+    ) -> None:
         self._hass = hass
         self._entry_id = entry_id
         self._base_url = f"http://{host}:{port}"
-        self._client = httpx.AsyncClient(timeout=30.0)
+        self._client = client or httpx.AsyncClient(timeout=30.0)
 
     @property
     def supported_languages(self) -> list[str]:
